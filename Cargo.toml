@@ -14,11 +14,13 @@ name = "zero2prod"
 
 [dependencies]
 config = "0.11"
-actix-web = "4.3.0"
+actix-web = "4"
 serde = { version = "1", features = ["derive"]}
+uuid = { version = "1", features = ["v4","serde"] }
+chrono = "0.4.15"
 
 [dependencies.sqlx]
-version = "0.6.2"
+version = "0.6"
 default-features = false
 features = [
     "runtime-actix-rustls",
@@ -26,7 +28,8 @@ features = [
     "postgres",
     "uuid",
     "chrono",
-    "migrate"
+    "migrate",
+    "offline"
 ] 
 
 [dev-dependencies]
