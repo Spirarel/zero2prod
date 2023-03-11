@@ -1,13 +1,13 @@
-# fly.toml file generated for zero2prod-3-23 on 2023-03-10T20:08:43-06:00
+# fly.toml file generated for restless-bush-2618 on 2023-03-11T10:58:36-06:00
 
-app = "zero2prod-3-23"
+app = "restless-bush-2618"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "ord"
 processes = []
 
 [env]
-
+  RUST_LOG="subscriptions"
 [experimental]
   auto_rollback = true
 
