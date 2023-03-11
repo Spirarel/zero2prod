@@ -1,4 +1,4 @@
-# fly.toml file generated for zero2prod-3-23 on 2023-03-10T18:15:30-06:00
+# fly.toml file generated for zero2prod-3-23 on 2023-03-10T20:08:43-06:00
 
 app = "zero2prod-3-23"
 kill_signal = "SIGINT"
@@ -7,7 +7,6 @@ primary_region = "ord"
 processes = []
 
 [env]
-
 
 [experimental]
   auto_rollback = true
