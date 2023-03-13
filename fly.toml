@@ -7,7 +7,7 @@ primary_region = "ord"
 processes = []
 
 [env]
-  RUST_LOG = "TRACE"
+  # RUST_LOG = "TRACE"
 
 [experimental]
   auto_rollback = true
