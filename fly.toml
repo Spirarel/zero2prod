@@ -1,13 +1,14 @@
-# fly.toml file generated for restless-bush-2618 on 2023-03-11T10:58:36-06:00
+# fly.toml file generated for z2p on 2023-03-11T20:28:17-06:00
 
-app = "restless-bush-2618"
+app = "z2p"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "ord"
 processes = []
 
 [env]
-  RUST_LOG="subscriptions"
+  RUST_LOG = "TRACE"
+
 [experimental]
   auto_rollback = true
 
