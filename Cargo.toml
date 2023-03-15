@@ -49,6 +49,7 @@ quickcheck = "1.0.3"
 quickcheck_macros = "1.0.0"
 wiremock = "0.5.17"
 claims = "0.7.1"
+rand = "0.8.5"
 
 [profile.release]
 strip = true  # Automatically strip symbols from the binary.
