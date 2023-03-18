@@ -1,5 +1,9 @@
-use crate::domain::{NewSubscriber, SubscriberName};
-use actix_web::{post, web, HttpResponse};
+use crate::domain::{NewSubscriber, SubscriberEmail, SubscriberName};
+use actix_web::{
+    post,
+    web::{Data, Form},
+    HttpResponse,
+};
 use chrono::Utc;
 use sqlx::PgPool;
 use uuid::Uuid;
@@ -8,6 +12,15 @@ use uuid::Uuid;
 pub struct FormData {
     email: String,
     name: String,
+}
+
+impl TryFrom<FormData> for NewSubscriber {
+    type Error = String;
+    fn try_from(value: FormData) -> Result<Self, Self::Error> {
+        let name = SubscriberName::parse(value.name)?;
+        let email = SubscriberEmail::parse(value.email)?;
+        Ok(Self { email, name })
+    }
 }
 
 #[allow(clippy::async_yields_async)]
@@ -20,14 +33,10 @@ pub struct FormData {
     )
 )]
 #[post("/subscriptions")]
-pub async fn subscribe(form: web::Form<FormData>, pool: web::Data<PgPool>) -> HttpResponse {
-    let name = match SubscriberName::parse(form.0.name) {
-        Ok(name) => name,
+pub async fn subscribe(form: Form<FormData>, pool: Data<PgPool>) -> HttpResponse {
+    let new_subscriber = match form.0.try_into() {
+        Ok(sub) => sub,
         Err(e) => return HttpResponse::BadRequest().body(e),
-    };
-    let new_subscriber = NewSubscriber {
-        email: form.0.email,
-        name,
     };
     match insert_subscriber(&pool, &new_subscriber).await {
         Ok(_) => HttpResponse::Ok().finish(),
@@ -49,7 +58,7 @@ pub async fn insert_subscriber(
     VALUES ($1, $2, $3, $4)
             "#,
         Uuid::new_v4(),
-        new_subscriber.email,
+        new_subscriber.email.as_ref(),
         new_subscriber.name.as_ref(),
         Utc::now()
     )
