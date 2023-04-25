@@ -1,4 +1,4 @@
-# fly.toml file generated for z2p on 2023-03-11T20:28:17-06:00
+# fly.toml file generated for z2p on 2023-03-15T20:43:17-05:00
 
 app = "z2p"
 kill_signal = "SIGINT"
@@ -7,7 +7,6 @@ primary_region = "ord"
 processes = []
 
 [env]
-  # RUST_LOG = "TRACE"
 
 [experimental]
   auto_rollback = true
